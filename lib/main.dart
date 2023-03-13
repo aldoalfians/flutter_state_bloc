@@ -18,6 +18,8 @@ class MyApp extends StatelessWidget {
 
 class CounterCubit extends Cubit<int> {
   int initialData;
+  int? current;
+  int? next;
 
   CounterCubit({this.initialData = 0}) : super(initialData);
 
@@ -27,6 +29,25 @@ class CounterCubit extends Cubit<int> {
 
   void kurangData() {
     emit(state - 1);
+  }
+
+  // Observer Cubit "Fitur bloc untuk memantau data"
+
+  // - Perubahan state "Onchange"
+  @override
+  void onChange(Change<int> change) {
+    // TODO: implement onChange
+    super.onChange(change);
+    print(change);
+    current = change.currentState;
+    next = change.nextState;
+  }
+
+  // - Error OnError
+  @override
+  void onError(Object error, StackTrace stackTrace) {
+    // TODO: implement onError
+    super.onError(error, stackTrace);
   }
 }
 
@@ -43,23 +64,33 @@ class HomePage extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           StreamBuilder(
+            initialData: myCounter.initialData,
             stream: myCounter.stream,
             builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                return const Center(
-                  child: Text(
-                    "Loading...",
-                    style: TextStyle(fontSize: 38),
-                  ),
-                );
-              } else {
-                return Center(
-                  child: Text(
-                    "${snapshot.data}",
-                    style: const TextStyle(fontSize: 38),
-                  ),
-                );
-              }
+              return Center(
+                child: Column(
+                  children: [
+                    Text(
+                      "Data : ${snapshot.data}",
+                      style: const TextStyle(fontSize: 38),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Next : ${myCounter.next}",
+                      style: const TextStyle(fontSize: 38),
+                    ),
+                    const SizedBox(
+                      height: 30,
+                    ),
+                    Text(
+                      "Current : ${myCounter.current}",
+                      style: const TextStyle(fontSize: 38),
+                    ),
+                  ],
+                ),
+              );
             },
           ),
           const SizedBox(

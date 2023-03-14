@@ -16,8 +16,14 @@ class HomePage extends StatelessWidget {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          BlocListener<Counter, int>(
+          BlocConsumer<Counter, int>(
             bloc: myCounter,
+            builder: (context, state) {
+              return Text(
+                "${state}",
+                style: TextStyle(fontSize: 50),
+              );
+            },
             listener: (context, state) {
               ScaffoldMessenger.of(context).showSnackBar(
                 SnackBar(
@@ -26,17 +32,30 @@ class HomePage extends StatelessWidget {
                 ),
               );
             },
-            // bloc builder ini di bungkus oleh bloc listener unutk melisten di dalam listener
-            child: BlocBuilder<Counter, int>(
-              bloc: myCounter,
-              builder: (context, state) {
-                return Text(
-                  "${state}",
-                  style: TextStyle(fontSize: 50),
-                );
-              },
-            ),
           ),
+
+          // Using bloc Listener
+          // BlocListener<Counter, int>(
+          //   bloc: myCounter,
+          // listener: (context, state) {
+          //   ScaffoldMessenger.of(context).showSnackBar(
+          //     SnackBar(
+          //       content: Text("Success"),
+          //       duration: Duration(milliseconds: 30),
+          //     ),
+          //   );
+          // },
+          //   // bloc builder ini di bungkus oleh bloc listener unutk melisten di dalam listener
+          //   child: BlocBuilder<Counter, int>(
+          //     bloc: myCounter,
+          //     builder: (context, state) {
+          //       return Text(
+          //         "${state}",
+          //         style: TextStyle(fontSize: 50),
+          //       );
+          //     },
+          //   ),
+          // ),
 
           // Using package flutter bloc "bloc builder"
           // BlocBuilder<Counter, int>(

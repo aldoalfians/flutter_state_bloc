@@ -14,14 +14,18 @@ class HomePage extends StatelessWidget {
     return Scaffold(
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          Navigator.of(context).push(
-            MaterialPageRoute(builder: (context) {
-              return BlocProvider.value(
-                value: myCounter,
-                child: const OtherPage(),
-              );
-            }),
-          );
+          // anonymous route
+          // Navigator.of(context).push(
+          //   MaterialPageRoute(builder: (context) {
+          //     return BlocProvider.value(
+          //       value: myCounter,
+          //       child: const OtherPage(),
+          //     );
+          //   }),
+          // );
+
+          // route using name
+          Navigator.of(context).pushNamed("/other");
         },
         child: const Icon(Icons.arrow_forward),
       ),

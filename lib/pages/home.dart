@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app/bloc/counter.dart';
+import 'package:flutter_bloc_app/pages/other.dart';
 import 'package:flutter_bloc_app/widget/data_widget.dart';
 
 class HomePage extends StatelessWidget {
@@ -11,8 +12,21 @@ class HomePage extends StatelessWidget {
     Counter myCounter = BlocProvider.of<Counter>(context);
 
     return Scaffold(
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          Navigator.of(context).push(
+            MaterialPageRoute(builder: (context) {
+              return BlocProvider.value(
+                value: myCounter,
+                child: const OtherPage(),
+              );
+            }),
+          );
+        },
+        child: const Icon(Icons.arrow_forward),
+      ),
       appBar: AppBar(
-        title: Text("Bloc Provider"),
+        title: const Text("Bloc Provider"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,

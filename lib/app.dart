@@ -30,7 +30,6 @@ class App extends StatelessWidget {
 
           // Using Generate route access
           onGenerateRoute: router.generateRoute,
-          home: HomePage(),
         );
       },
     );

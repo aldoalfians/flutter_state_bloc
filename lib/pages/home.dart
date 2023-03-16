@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app/bloc/counter.dart';
+import 'package:flutter_bloc_app/bloc/theme_bloc.dart';
 import 'package:flutter_bloc_app/pages/other.dart';
 import 'package:flutter_bloc_app/widget/data_widget.dart';
 
@@ -30,11 +31,50 @@ class HomePage extends StatelessWidget {
         child: const Icon(Icons.arrow_forward),
       ),
       appBar: AppBar(
-        title: const Text("Bloc Provider"),
+        title: const Text("Home Page"),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          MultiBlocListener(
+            listeners: [
+              BlocListener<ThemeBloc, bool>(
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Show"),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
+                listenWhen: (previous, current) {
+                  if (current == false) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+              ),
+              BlocListener<Counter, int>(
+                listener: (context, state) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(
+                      content: Text("Show 10"),
+                      duration: Duration(seconds: 1),
+                    ),
+                  );
+                },
+                listenWhen: (previous, current) {
+                  if (current > 10) {
+                    return true;
+                  } else {
+                    return false;
+                  }
+                },
+              ),
+            ],
+            child: DataWidget(),
+          ),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
@@ -54,7 +94,6 @@ class HomePage extends StatelessWidget {
                   ),
                 ),
               ),
-              DataWidget(),
               Material(
                 color: Colors.blue,
                 child: InkWell(

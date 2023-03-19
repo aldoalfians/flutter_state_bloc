@@ -5,6 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_app/app.dart';
 import 'package:flutter_bloc_app/bloc/counter.dart';
 import 'package:flutter_bloc_app/bloc/theme_bloc.dart';
+import 'package:flutter_bloc_app/bloc/user.dart';
 import 'package:flutter_bloc_app/config/app_router.dart';
 import 'package:flutter_bloc_app/pages/home.dart';
 import 'package:flutter_bloc_app/pages/other.dart';
@@ -16,9 +17,8 @@ void main() {
 class MyApp extends StatelessWidget {
   // Counter myCounter = Counter();
 
-
-
   final ThemeBloc myTheme = ThemeBloc();
+  final UserBloc userBloc = UserBloc();
   @override
   Widget build(BuildContext context) {
     return MultiBlocProvider(
@@ -28,6 +28,9 @@ class MyApp extends StatelessWidget {
         ),
         BlocProvider(
           create: (context) => myTheme,
+        ),
+        BlocProvider(
+          create: (context) => userBloc,
         ),
       ],
       child: App(),

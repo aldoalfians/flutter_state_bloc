@@ -34,6 +34,7 @@ class HomePage extends StatelessWidget {
         title: const Text("Home Page"),
       ),
       body: Column(
+      
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           MultiBlocListener(
@@ -111,7 +112,7 @@ class HomePage extends StatelessWidget {
                 ),
               ),
             ],
-          )
+          ),
         ],
       ),
     );
